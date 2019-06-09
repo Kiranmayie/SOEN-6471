@@ -14,7 +14,7 @@ function validate()
 	        var email = document.form.email.value;
 	        var password = document.form.password.value;
 	        var confirmPassword= document.form.confirmPassword.value;
-	
+	        
 	        if (firstName == null || firstName == ""){
 	        	alert("Please write your first name");
 	        	return false;
