@@ -14,7 +14,7 @@ function validate()
 	        var email = document.form.email.value;
 	        var password = document.form.password.value;
 	        var confirmPassword= document.form.confirmPassword.value;
-	        
+
 	        if (firstName == null || firstName == ""){
 	        	alert("Please write your first name");
 	        	return false;
@@ -103,6 +103,7 @@ function validate()
 		mStatement.setString(5, password);
 		
 		updateQuery = mStatement.executeUpdate();
+
 		if (updateQuery != 0) {%>
 		<br>
 		<TABLE style="background-color: #E3E4FA;" WIDTH="30%" border="1">
@@ -115,6 +116,7 @@ function validate()
 		out.println("Unable to connect to batabase.");
 	}	
 	mConnection.close();
+
 	%>
 </form>
 
