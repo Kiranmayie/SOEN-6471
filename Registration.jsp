@@ -7,14 +7,14 @@
 <title>Registration Test</title>
 <script>
 function validate()
-        { 
+        {  
 	        var firstName = document.form.firstName.value;
 	        var lastName = document.form.lastName.value;
 	        var contactNumber = document.form.contactNumber.value;
 	        var email = document.form.email.value;
 	        var password = document.form.password.value;
 	        var confirmPassword= document.form.confirmPassword.value;
-	
+
 	        if (firstName == null || firstName == ""){
 	        	alert("Please write your first name");
 	        	return false;
@@ -84,24 +84,26 @@ function validate()
 	String email = request.getParameter("email");
 	String password = request.getParameter("password");
 	
-	String connectionURL = "jdbc:mysql://localhost:3306/student_2";
-	
-	Connection connection = null;
-	PreparedStatement pstatement = null;
+	mConnection mConnection = null;
+	PreparedStatement mStatement = null;
 	int updateQuery = 0;
+	
+	String mConnectionURL = "jdbc:mysql://localhost:3306/student_2";
+
 
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection(connectionURL,"root","");
+		Class.forName("com.mysql.jdbc.DbConnectorClass");
+		mConnection = DbConnectorClass.getmConnection(mConnectionURL,"root","");
 		String queryString = "insert into users(firstName,lastName,contactNumber,email,password) values(?,?,?,?,?)";
-		pstatement = connection.prepareStatement(queryString);
-		pstatement.setString(1, firstName);
-		pstatement.setString(2, lastName);
-		pstatement.setString(3, contactNumber);
-		pstatement.setString(4, email);
-		pstatement.setString(5, password);
+		mStatement = mConnection.prepareStatement(queryString);
+		mStatement.setString(1, firstName);
+		mStatement.setString(2, lastName);
+		mStatement.setString(3, contactNumber);
+		mStatement.setString(4, email);
+		mStatement.setString(5, password);
 		
-		updateQuery = pstatement.executeUpdate();
+		updateQuery = mStatement.executeUpdate();
+
 		if (updateQuery != 0) {%>
 		<br>
 		<TABLE style="background-color: #E3E4FA;" WIDTH="30%" border="1">
@@ -113,7 +115,8 @@ function validate()
 	catch (Exception ex){
 		out.println("Unable to connect to batabase.");
 	}	
-	connection.close();
+	mConnection.close();
+
 	%>
 </form>
 
