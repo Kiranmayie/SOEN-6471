@@ -90,7 +90,6 @@ function validate()
 	
 	String mConnectionURL = "jdbc:mysql://localhost:3306/";
 
-
 	try {
 		Class.forName("com.mysql.jdbc.DbConnectorClass");
 		mConnection = DbConnectorClass.getmConnection(mConnectionURL,"root","");
