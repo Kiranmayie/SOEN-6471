@@ -88,7 +88,7 @@ function validate()
 	PreparedStatement mStatement = null;
 	int updateQuery = 0;
 	
-	String mConnectionURL = "jdbc:mysql://localhost:3306";
+	String mConnectionURL = "jdbc:mysql://localhost:3306/";
 
 
 	try {
