@@ -7,42 +7,42 @@
 <title>Registration Test</title>
 <script>
 function validate()
-        {
-        var firstName = document.form.firstName.value;
-        var lastName = document.form.lastName.value;
-        var contactNumber = document.form.contactNumber.value;
-        var email = document.form.email.value;
-        var password = document.form.password.value;
-        var confirmPassword= document.form.confirmPassword.value;
-
-        if (firstName == null || firstName == ""){
-        alert("Please write your first name");
-        return false;
-        }else if (lastName == null || lastName == ""){
-        alert("Please write your last name");
-        return false;
-        }else if (contactNumber == null || contactNumber == ""){
-        alert("Please write your contact number");
-        return false;
-        }
-        else if (email == null || email == ""){
-        alert("Please write your email");
-        return false;
-        }
-        else if(password.length < 4){
-        alert("Password must be at least 4 characters long.");
-        return false;
-        }
-        else if (password != confirmPassword){
-        alert("Confirm Password is not the same as Password");
-        return false;
-        }
+        {  
+	        var firstName = document.form.firstName.value;
+	        var lastName = document.form.lastName.value;
+	        var contactNumber = document.form.contactNumber.value;
+	        var email = document.form.email.value;
+	        var password = document.form.password.value;
+	        var confirmPassword= document.form.confirmPassword.value;
+	        
+	        if (firstName == null || firstName == ""){
+	        	alert("Please write your first name");
+	        	return false;
+	        }else if (lastName == null || lastName == ""){
+	        	alert("Please write your last name");
+	        	return false;
+	        }else if (contactNumber == null || contactNumber == ""){
+	        	alert("Please write your contact number");
+	        	return false;
+	        }
+	        else if (email == null || email == ""){
+	        	alert("Please write your email");
+	        	return false;
+	        }
+	        else if(password.length < 4){
+	        	alert("Password must be at least 4 characters long.");
+	        	return false;
+	        }
+	        else if (password != confirmPassword){
+	        	alert("Confirm Password is not the same as Password");
+	        	return false;
+	        }
         }
 </script>
 </head>
 <body>
 <center><h2> Please fill out the registration form </h2></center>
-<form name="form" action="RegisterServlet" method="post" onsubmit="return validate()">
+<form name="Registrationform" action="RegisterServlet" method="post" onsubmit="return validate()">
 <table align="center">
 <tr>
 <td>First Name</td>
@@ -74,10 +74,48 @@ function validate()
 </tr>
 <tr>
 <td></td>
-<td><input type="submit" value="Register"></input><input
- type="reset" value="Reset"></input></td>
+<td><input type="submit" value="submit"></input></td>
 </tr>
 </table>
+	<%
+	String firstName = request.getParameter("firstName");
+	String lastName = request.getParameter("lastName");
+	String contactNumber = request.getParameter("contactNumber");
+	String email = request.getParameter("email");
+	String password = request.getParameter("password");
+	
+	mConnection mConnection = null;
+	PreparedStatement mStatement = null;
+	int updateQuery = 0;
+	
+	String mConnectionURL = "jdbc:mysql://localhost:3306/student_2";
+
+
+	try {
+		Class.forName("com.mysql.jdbc.DbConnectorClass");
+		mConnection = DbConnectorClass.getmConnection(mConnectionURL,"root","");
+		String queryString = "insert into users(firstName,lastName,contactNumber,email,password) values(?,?,?,?,?)";
+		mStatement = mConnection.prepareStatement(queryString);
+		mStatement.setString(1, firstName);
+		mStatement.setString(2, lastName);
+		mStatement.setString(3, contactNumber);
+		mStatement.setString(4, email);
+		mStatement.setString(5, password);
+		
+		updateQuery = mStatement.executeUpdate();
+		if (updateQuery != 0) {%>
+		<br>
+		<TABLE style="background-color: #E3E4FA;" WIDTH="30%" border="1">
+		<tr><th>User has been created successfully!</th></tr>
+		</table>
+		
+		<%
+	}
+	catch (Exception ex){
+		out.println("Unable to connect to batabase.");
+	}	
+	mConnection.close();
+	%>
 </form>
 
 </body>
