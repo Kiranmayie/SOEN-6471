@@ -38,6 +38,14 @@ FOREIGN KEY(Movie_Id) REFERENCES Movie_Info(Movie_Id),
     PRIMARY KEY (Screen_Id)
   );
 
+create table movie_table.schedule_info(
+schedule_Id integer auto_increment ,
+ Booking_Id integer,
+ Admin_Id integer,
+ FOREIGN KEY(Booking_Id) REFERENCES Booking_Info(Booking_Id),
+ FOREIGN KEY(Admin_Id) REFERENCES Admin_Info(Admin_Id),
+  PRIMARY KEY (schedule_Id)
+);
   Create table movie_table.Showtime (
     Screen_Id int,
     Movie_Id int,
