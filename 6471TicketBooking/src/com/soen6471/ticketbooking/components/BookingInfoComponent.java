@@ -48,18 +48,26 @@ public class BookingInfoComponent {
 	/**
 	 * @return the showTime
 	 */
-	public int getShowTime() {
+	public String getShowTime() {
 		return showTime;
 	}
 	/**
 	 * @param showTime the showTime to set
 	 */
-	public void setShowTime(int showTime) {
+	public void setShowTime(String showTime) {
 		this.showTime = showTime;
+	}
+	int seatnumber;
+	
+	public int getSeatnumber() {
+		return seatnumber;
+	}
+	public void setSeatnumber(int seatnumber) {
+		this.seatnumber = seatnumber;
 	}
 	ScreenComponent screen;
 	UserComponent user;
-	int showTime;
+	String showTime;
 	
 
 }
