@@ -54,3 +54,11 @@ INSERT INTO movie_table.Seat (Movie_Id, Screen_Id) values
    ('308124082513198','visa', '08.2019','6','4','5'),
    ('151532346757842','visa', '02.2020', '7', '1', '8'),
    ('853005178730916','mastercard', '01.2020', '8', '1', '8');
+   
+   
+   insert into movie_table.schedule_info(Booking_Id,Admin_Id) values 
+(5,1),
+(6,1),
+(7,2),
+(8,2);
+
