@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.soen6471.ticketbooking.components.BookingInfoComponent;
+import com.soen6471.ticketbooking.components.MovieComponent;
+import com.soen6471.ticketbooking.dao.TicketDao;
+
 /**
  * Servlet implementation class BookingServlet
  */
@@ -34,7 +38,19 @@ public class BookingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		BookingInfoComponent bookinginfo=new BookingInfoComponent();
+		MovieComponent moviecomp=new MovieComponent();
+		TicketDao dao=new TicketDao();
+		moviecomp.setMovieId(Integer.parseInt(request.getParameter("movies")));
+		bookinginfo.setMovie(moviecomp);
+		String time=request.getParameter("Time");
+		String date=request.getParameter("date").toString();
+		bookinginfo.setShowTime(time+date);
+		int seat=Integer.parseInt(request.getParameter("seat"));
+		bookinginfo.setSeatnumber(seat);
+		
+		
+		String msg=dao.bookTicket(bookinginfo);
 		doGet(request, response);
 	}
 
