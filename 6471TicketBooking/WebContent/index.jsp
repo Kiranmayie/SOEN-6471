@@ -7,13 +7,19 @@
 <title>Ticket Booking</title>
 </head>
 <body>
+<table>
   <form action="LoginServlet" method="post">
-  <label>User ID</label>
-  <input type="text"  name="email" />
-  <label>Password</label>
-  <input type="password" name="password" />
   
- <input type="submit" value="Login">
+  <tr><td><div style="color: #FF0000;"> <span class="error">${message}</span></div><br></td></tr>
+  <tr><td><label>User ID</label></td>
+  <td><input type="text"  name="email" /></td></tr>
+  <tr><td><label>Password</label></td>
+  <td><input type="password" name="password" /></td></tr>
+ 
+  
+ <tr><td><input type="submit" value="Login"></td></tr>
+ 
  </form>
+ </table>
 </body>
 </html>
