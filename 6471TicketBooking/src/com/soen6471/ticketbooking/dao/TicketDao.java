@@ -97,7 +97,7 @@ public class TicketDao {
 				preparedStmt.setInt(1, bookingInfo.getMovie().getMovieId());
 				preparedStmt.setInt(2, bookingInfo.getSeatnumber());
 				preparedStmt.setString(3, bookingInfo.getShowTime());
-				preparedStmt.setString(4, "swetha");
+				preparedStmt.setString(4, bookingInfo.getUser().getFirstName());
 				int row = preparedStmt.executeUpdate();
 
 				while (row>0) {
@@ -106,7 +106,7 @@ public class TicketDao {
 				}
 
 			}
-		}   
+		}
 
 		catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -116,6 +116,42 @@ public class TicketDao {
 			e.printStackTrace();
 		}
 		return "error";
+
+	}
+	
+	
+	
+	public String getMovieName(int movieId)
+	{
+		String movieName=null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
+
+			if (con != null) {
+				System.out.println("Connected");
+				preparedStmt = con.prepareStatement(" SELECT name_of_movie from movie_table.movie_info WHERE movie_id=?");
+				preparedStmt.setInt(1, movieId);
+				
+				ResultSet rs= preparedStmt.executeQuery();
+
+				while (rs.next()) {
+					movieName=rs.getString(1);
+
+				}
+
+			}
+		}
+
+		catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return movieName;
 
 	}
 }
