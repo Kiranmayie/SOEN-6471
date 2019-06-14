@@ -14,36 +14,55 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<h2>Hi ${user}</h2>
 <div class="sidenav">
          <div class="login-main-text">
-            <h2>Ticket Management System<br> User page</h2>
-            <p>Please select movie name, date and time</p>
+            <h2>Ticket Management System</h2>
+            <p>Choose your Movie</p>
          </div>
       </div>
       <div class="user">
          <div class="row">
             <div class="user selection">
+            <table>
                <form action="BookingServlet" method="post">
                   <div class="details">
-                     <label>Movie</label>
-                     <select name="movies" onchange="getSelectedValue();">
-                         <option value="boss baby">boss baby</option>
-                         <option value="007">007</option>
+                    <tr>
+                    <td> <label>Movie</label></td>
+                     <td><select name="movies" >
+                     	<option selected disabled>Choose one</option>
+                         <option value="1">Avengers:EndGame</option>
+                         <option value="2">Shazam</option>
+                         <option value="3">Frozen 2</option>
+                         <option value="4">Captain Marvel</option>
+                         <option value="5">Aladdin</option>
+                         <option value="6">Fault in Our Stars</option>
                      </select>
-                     <br>
-                     <label>Time</label>
-                     <select name="Time">
-                         <option value="4:00 PM">4:00 PM</option>
+                     </td></tr>
+                  <tr>
+                   <td>  <label>Time</label></td>
+                    <td> <select name="Time">
+                    	<option selected disabled>Choose one</option>
+                     	<option value="11:00 AM">11:00 AM</option>
+                         <option value="2:10 PM">2:10 PM</option>
+                         <option value="4:30 PM">4:30 PM</option>
                          <option value="8:10 PM">8:10 PM</option>
                      </select>
-                     <br>
-                     <label>date</label>
-                    <input type="text" id="datepicker" name="date">
-                    <input type="text" id="SeatNumber" name="seat">
-                    
+                     </td></tr>
+                     <tr>
+                     <td><label>Pick a Date</label></td>
+                    <td><input type="text" id="datepicker" name="date" placeholder="Date" ></td>
+                    </tr>
+                    <tr>
+                    <td><label>Select Number of Tickets</label></td>
+                    <td><input type="text" id="SeatNumber" name="seat"></td>
+                    </tr>
+                	<td><input type="hidden" name="fname" value="${user}" /></td>
+                 
                     
                    </div>
-                  <button type="Print Receipt" class="btn btn-black">SUBMIT</button>	
+                  <tr><td><input type="submit" value="BUY NOW"  class="btn btn-black"></td></tr>
                   <script>
                       function getSelectedValue(){
                           var moviename = document.getElementById("movies").value;
@@ -54,6 +73,7 @@
                    </script>
                   
                </form>
+                  </table>
             </div>
          </div>
       </div>
