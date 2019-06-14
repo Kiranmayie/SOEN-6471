@@ -2,12 +2,15 @@ package com.soen6471.ticketbooking.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.soen6471.ticketbooking.components.UserComponent;
 import com.soen6471.ticketbooking.dao.TicketDao;
@@ -24,6 +27,7 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
+       
         // TODO Auto-generated constructor stub
     }
 
@@ -40,11 +44,33 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserComponent user=new UserComponent();
+		
+		 //Map<String, String> messages = new HashMap<String, String>();
 		TicketDao dao=new TicketDao();
 		PrintWriter pw=response.getWriter();
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password")); 
+		HttpSession session = request.getSession(true);
 		
+		
+		String fname=dao.checkLogin(user);
+		System.out.println(fname);
+		
+		if(fname!=null)
+		{
+			//messages.put("user", );
+			
+			 session.setAttribute("user", fname);
+			 request.getRequestDispatcher("bookTicket.jsp").forward(request, response); 
+			
+		}
+		else
+		{
+			request.setAttribute("message", "Please check the username or password");
+			request.getRequestDispatcher("index.jsp").forward(request, response); 
+			
+		}
+			
 		doGet(request, response);
 	}
 

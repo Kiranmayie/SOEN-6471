@@ -1,14 +1,19 @@
 package com.soen6471.ticketbooking.servlet;
 
 import java.io.IOException;
+import java.util.Random;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.soen6471.ticketbooking.components.BookingInfoComponent;
 import com.soen6471.ticketbooking.components.MovieComponent;
+import com.soen6471.ticketbooking.components.TicketInfoComponent;
+import com.soen6471.ticketbooking.components.UserComponent;
 import com.soen6471.ticketbooking.dao.TicketDao;
 
 /**
@@ -17,6 +22,7 @@ import com.soen6471.ticketbooking.dao.TicketDao;
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	TicketDao dao=new TicketDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,7 +46,10 @@ public class BookingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookingInfoComponent bookinginfo=new BookingInfoComponent();
 		MovieComponent moviecomp=new MovieComponent();
-		TicketDao dao=new TicketDao();
+		UserComponent userInfo=new UserComponent();
+		TicketInfoComponent ticket=new TicketInfoComponent();
+		
+		HttpSession session = request.getSession(true);
 		moviecomp.setMovieId(Integer.parseInt(request.getParameter("movies")));
 		bookinginfo.setMovie(moviecomp);
 		String time=request.getParameter("Time");
@@ -49,9 +58,75 @@ public class BookingServlet extends HttpServlet {
 		int seat=Integer.parseInt(request.getParameter("seat"));
 		bookinginfo.setSeatnumber(seat);
 		
+		String fname= request.getParameter("fname");
+		userInfo.setFirstName(request.getParameter("fname"));
+		bookinginfo.setUser(userInfo);
+		
+		ticket=getTicketDetails(bookinginfo);
+		ticket.setPrice(getTicketPrice(bookinginfo, time));
+		ticket.setDate(date);
+		ticket.setTime(time);
+		
+		
 		
 		String msg=dao.bookTicket(bookinginfo);
+		if(msg.equals("success"))
+		{
+			session.setAttribute("ticket", ticket);
+			session.setAttribute("user", fname);
+			request.getRequestDispatcher("ticketInfo.jsp").forward(request, response); 
+		}
+		
 		doGet(request, response);
 	}
 
+	
+	public TicketInfoComponent getTicketDetails(BookingInfoComponent bookingInfo)
+	{
+		TicketInfoComponent ticket=new TicketInfoComponent();
+		String seatNos="";
+		
+		
+		String movieName= dao.getMovieName(bookingInfo.getMovie().getMovieId());
+		ticket.setMovieName(movieName);
+		
+		ticket.setNumberOfTickets(bookingInfo.getSeatnumber());
+		
+		final String alphabet="ABCDEFGHIJKLMNOPQRS";
+		Random r = new Random();
+		int number=r.nextInt(10) + 1;
+
+		for (int i = 0; i < bookingInfo.getSeatnumber(); i++) {
+	        seatNos+=alphabet.charAt(r.nextInt(alphabet.length())) +""+ number+ ",";}
+		ticket.setSeatNumbers(seatNos);
+		
+		return ticket;
+	}
+	
+	public double getTicketPrice(BookingInfoComponent bookingInfo,String timing ){
+		 double price=0.0;
+			int numbOfSeats=bookingInfo.getSeatnumber();
+			
+			if (timing.equals("11:00 AM"))
+			{
+				price = numbOfSeats * 6;
+			}
+			else if(timing.equals("2:10 PM"))
+			{
+				price= numbOfSeats * 6.25;
+			}
+			else if(timing.equals("4:30 PM"))
+			{
+				price= numbOfSeats * 8;
+			}
+			else
+			{
+				price= numbOfSeats * 7.5;
+			}
+		 
+		 
+		 return price;
+		
+		
+	}
 }
