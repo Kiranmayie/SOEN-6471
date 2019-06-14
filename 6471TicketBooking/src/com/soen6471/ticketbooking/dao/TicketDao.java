@@ -50,7 +50,7 @@ public class TicketDao {
 		String fname = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "Kiran@28");
 
 			if (con != null) {
 				System.out.println("Connected");
@@ -88,7 +88,7 @@ public class TicketDao {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "Kiran@28");
 
 			if (con != null) {
 				System.out.println("Connected");
