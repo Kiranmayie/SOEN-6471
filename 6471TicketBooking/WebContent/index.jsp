@@ -21,8 +21,8 @@ src="../script/validate.js"></script>
    <marquee behavior="scroll" direction="left">HOME PAGE</marquee>
   </div>
   <div class="bottomleft">
-    <a href="url">USER LOGIN</a>
-    <a href="C:/Users/USER/git/TMS/project/6471TicketBooking/WebContent/WEB-INF/AdminLogin.jsp">ADMIN LOGIN</a>
+    <a href="C:/Users/USER/git/SOEN-6471/6471TicketBooking/WebContent/UserLogin.jsp">USER LOGIN</a>
+    <a href="C:/Users/USER/git/SOEN-6471/6471TicketBooking/WebContent/AdminLogin.jsp">ADMIN LOGIN</a>
   </div>
 </div>
 </body>
