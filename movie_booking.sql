@@ -96,3 +96,15 @@ FOREIGN KEY(Movie_Id) REFERENCES Movie_Info(Movie_Id),
       PRIMARY KEY (credit_Id)
 )
 ;
+
+
+Create table movie_table.Booking_Info1 (
+    
+Movie_Id int,
+Seat_ID int,
+Showtime_Id varchar(50),
+  user_Id varchar(45),
+     Booking_Id integer auto_increment ,
+      PRIMARY KEY (Booking_Id )
+
+  )
