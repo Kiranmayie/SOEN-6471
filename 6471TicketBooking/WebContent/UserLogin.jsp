@@ -1,21 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
-<font color="blue">Please Enter User Name and Password </font><br><br>
+<font color="blue">TICKET BOOKING SYSTEM </font><br><br>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>TICKET BOOKING</title>
-<h1>USER LOGIN PAGE</h1>
-    
+<title>USER LOGIN PAGE</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css"></link>
 <script language="JavaScript" type="text/JavaScript" 
 src="../script/validate.js"></script>
+<h1>USER LOGIN PAGE</h1>
 </head>
 <body>
-  <form action="LoginServlet" method="post">
  <table border = "0">
   <tr align="left" valign="top">
+  <form action="LoginServlet" method="post">
+  <tr><td><div style="color: #FF0000;"> <span class="error">${message}</span></div><br></td></tr>
+
+  
   <td>User Name:</td>
   <td><input type="text" name ="user" class="inputbox"/></td>
   </tr>

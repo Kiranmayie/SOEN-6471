@@ -34,8 +34,6 @@ src="../script/validate.js"></script>
   <td><input type="text"  name="email" /></td></tr>
   <tr><td><label>Password</label></td>
   <td><input type="password" name="password" /></td></tr>
- 
-  
  <tr><td><input type="submit" value="Login"></td></tr>
  
  </form>
