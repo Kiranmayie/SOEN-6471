@@ -11,7 +11,8 @@
   } );
   </script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Ticket Booking</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css"></link
 </head>
 <body>
 
