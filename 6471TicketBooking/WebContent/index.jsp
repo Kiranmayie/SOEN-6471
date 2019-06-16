@@ -11,6 +11,7 @@
 src="../script/validate.js"></script>
 </head>
 <body>
+
 <div class="bgimg">
   <div class="topleft">
     <p>WELCOME</p>
@@ -25,5 +26,20 @@ src="../script/validate.js"></script>
     <a href="C:/Users/USER/git/SOEN-6471/6471TicketBooking/WebContent/AdminLogin.jsp">ADMIN LOGIN</a>
   </div>
 </div>
+<table>
+  <form action="LoginServlet" method="post">
+  
+  <tr><td><div style="color: #FF0000;"> <span class="error">${message}</span></div><br></td></tr>
+  <tr><td><label>User ID</label></td>
+  <td><input type="text"  name="email" /></td></tr>
+  <tr><td><label>Password</label></td>
+  <td><input type="password" name="password" /></td></tr>
+ 
+  
+ <tr><td><input type="submit" value="Login"></td></tr>
+ 
+ </form>
+ </table>
+
 </body>
 </html>
