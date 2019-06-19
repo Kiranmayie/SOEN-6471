@@ -50,7 +50,8 @@ public class BookingServlet extends HttpServlet {
 		TicketInfoComponent ticket=new TicketInfoComponent();
 		
 		HttpSession session = request.getSession(true);
-		moviecomp.setMovieId(Integer.parseInt(request.getParameter("movies")));
+		moviecomp.setMovieId(Integer.parseInt(request.getParameter("movie")));
+		System.out.println(request.getParameter("movie"));
 		bookinginfo.setMovie(moviecomp);
 		String time=request.getParameter("Time");
 		String date=request.getParameter("date").toString();

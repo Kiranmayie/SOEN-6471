@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,20 @@
   } );
   </script>
 <meta charset="ISO-8859-1">
+
 <title>Ticket Booking</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css"></link
 </head>
 <body>
-
+<div class="bgimg">
+  <div class="topleft">
+    <p>WELCOME</p>
+  </div>
+  <div class="middle">
+    <h1>TICKET MANAGEMENT SYSTEM</h1>
+    <hr>
+   <marquee behavior="scroll" direction="left">HOME PAGE</marquee>
+  </div>
 <h2>Hi ${user}</h2>
 <div class="sidenav">
          <div class="login-main-text">
@@ -31,15 +41,21 @@
                   <div class="details">
                     <tr>
                     <td> <label>Movie</label></td>
-                     <td><select name="movies" >
+                   <!--   <td><select name="movies" >
                      	<option selected disabled>Choose one</option>
                          <option value="1">Avengers:EndGame</option>
                          <option value="2">Shazam</option>
                          <option value="3">Frozen 2</option>
-                         <option value="4">Captain Marvel</option>
+                         <option value="4">Twilight</option>
                          <option value="5">Aladdin</option>
-                         <option value="6">Fault in Our Stars</option>
-                     </select>
+                         <option value="6">Men in Black </option>
+                     </select> -->
+                   <td>  <select name="movie">
+        <c:forEach items="${movieDetails}" var="movieDetails">
+            <option value="${movieDetails.movieId}">${movieDetails.movieName}</option>
+        </c:forEach>
+    </select>
+    </td>
                      </td></tr>
                   <tr>
                    <td>  <label>Time</label></td>

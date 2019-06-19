@@ -9,8 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.soen6471.ticketbooking.components.BookingInfoComponent;
+import com.soen6471.ticketbooking.components.MovieComponent;
 import com.soen6471.ticketbooking.components.UserComponent;
 
 /**
@@ -50,12 +53,12 @@ public class TicketDao {
 		String fname = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "Kiran@28");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
 
 			if (con != null) {
 				System.out.println("Connected");
 				preparedStmt = con
-						.prepareStatement("SELECT * FROM movie_table.User_Info where email_id=? and password=?");
+						.prepareStatement("SELECT * FROM movie_table.User_Info where email_id=? and mpassword=?");
 				preparedStmt.setString(1, user.getEmail());
 				preparedStmt.setString(2, user.getPassword());
 
@@ -88,12 +91,12 @@ public class TicketDao {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "Kiran@28");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
 
 			if (con != null) {
 				System.out.println("Connected");
 				preparedStmt = con
-						.prepareStatement("INSERT into movie_table.Booking_Info1 (movie_id, Seat_number, Showtime, user_Id) values(?, ?, ?, ?)");
+						.prepareStatement("INSERT into movie_table.Booking_Info1 (movie_id, Seat_id, Showtime_id, user_Id) values(?, ?, ?, ?)");
 				preparedStmt.setInt(1, bookingInfo.getMovie().getMovieId());
 				preparedStmt.setInt(2, bookingInfo.getSeatnumber());
 				preparedStmt.setString(3, bookingInfo.getShowTime());
@@ -153,5 +156,72 @@ public class TicketDao {
 		}
 		return movieName;
 
+	}
+	
+	public List<MovieComponent> getAllMovieDetails()
+	{
+		ArrayList<MovieComponent> movieDetails=new ArrayList();
+		MovieComponent movie;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
+
+			if (con != null) {
+				preparedStmt = con.prepareStatement(" SELECT movie_id, name_of_movie FROM movie_table.movie_info ");
+				ResultSet rs= preparedStmt.executeQuery();
+				
+				while(rs.next())
+				{
+					movie=new MovieComponent();
+					movie.setMovieId(rs.getInt(1));
+					movie.setMovieName(rs.getString(2));
+					movieDetails.add(movie);
+				}
+				
+			}
+		}
+		
+			catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return movieDetails;
+	}
+	
+	public String addMovie(MovieComponent movie)
+	{
+		int row=0;
+		String result=null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/movie_table", "root", "root");
+
+			if (con != null) {
+				preparedStmt = con.prepareStatement("  INSERT INTO movie_table.Movie_Info (Name_of_movie, Movie_length,mDescription)\r\n" + 
+						"   VALUES (?,?,?)");
+				preparedStmt.setString(1, movie.getMovieName());
+				preparedStmt.setInt(2, movie.getMovieLength());
+				preparedStmt.setString(3, movie.getDescription());
+				row = preparedStmt.executeUpdate();
+
+				while (row>0) {
+					return "success";
+				}
+			}
+		}
+				catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+		return result;
 	}
 }
